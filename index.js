@@ -2,12 +2,12 @@
 var express = require ('express')
 var ejs = require('ejs')
 var mysql = require('mysql');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
 // Creates the express application object
 const app = express()
 const port = 8000
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Defines the database connection
 const db = mysql.createConnection ({

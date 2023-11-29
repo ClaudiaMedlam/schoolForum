@@ -10,7 +10,9 @@
     
     <ul> 
         <!-- Input topic data from database here -->
-    
+        <% for(let i = 0; i < allUsers.length; i++) {%>
+          <li><%= allUsers[i].name%></li>
+        <% } %>
     </ul>
   </body>
 </html>

@@ -10,7 +10,12 @@
     
     <ul> 
         <!-- Input topic data from database here -->
-    
+        <% for(let i = 0; i < allPosts.length; i++) {%>
+          <li>
+              <p>Title:<%= allPosts[i].title%></p>
+              <p>Content:<%= allPosts[i].content%></p>
+          </li>
+        <% } %>
     </ul>
   </body>
 </html>

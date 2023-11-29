@@ -3,49 +3,106 @@ module.exports = function(app, websiteData) {
     // Handles routes
     // HOME PAGE
     app.get('/', function(req, res){
-        res.render('index.html', websiteData)
+        res.render('index.ejs', websiteData)
     });
 
     // ABOUT PAGE
     app.get('/about', function(req, res){
-        res.render('about.html', websiteData)
+        res.render('about.ejs', websiteData)
     });
 
     // TOPICS LIST PAGE
     app.get('/topics', function(req, res){
-        res.render('topics.html', websiteData)
+        // Queries database to get all the topics
+        let sqlquery = "SELECT * FROM topics"
+
+        // Executes sql query
+        db.query(sqlquery, (err, result) => {
+            // Redirects to home page in case of any database query error
+            if (err) {
+                res.redirect('./');
+            }
+
+            // Creates object combining websiteData and database topics
+            let newData = Object.assign({}, websiteData, {availableTopics:result});
+            console.log(newData.name);
+            res.render('topics.ejs', newData);
+
+        });
     });
 
     // USER LIST PAGE
     app.get('/users', function(req, res){
-        res.render('users.html', websiteData)
+        // Queries database to get all the users
+        let sqlquery = "SELECT * FROM users"
+
+        // Executes sql query
+        db.query(sqlquery, (err, result) => {
+            // Redirects to home page in case of any database query error
+            if (err) {
+                res.redirect('./');
+            }
+
+            // Creates object combining websiteData and database topics
+            let newData = Object.assign({}, websiteData, {allUsers:result});
+            console.log(newData.name);
+            res.render('users.ejs', newData);
+
+        });
     });
 
     // POSTS
     // POSTS LIST PAGE
     app.get('/posts', function(req, res){
-        res.render('posts.html', websiteData)
-    });
+        // Queries database to get all the users
+        let sqlquery = "SELECT title, content FROM posts"
 
-    // ADD POSTS LIST PAGE
-    app.get('/posts', function(req, res){
-        res.render('posts.html', websiteData)
+        // Executes sql query
+        db.query(sqlquery, (err, result) => {
+            // Redirects to home page in case of any database query error
+            if (err) {
+                res.redirect('./');
+            }
+
+            // Creates object combining websiteData and database topics
+            let newData = Object.assign({}, websiteData, {allPosts:result});
+            console.log(newData.allPosts[0].title);
+            res.render('posts.ejs', newData);
+
+        });
     });
 
     // ADD NEW POST PAGE
     app.get('/addposts', function(req, res) {
-        res.render('addposts.html', websiteData)
+        res.render('addposts.ejs', websiteData)
     });
 
-    app.get('/added-post', function(req, res) {
-        
-        res.send("You created the post titled: " + req.query.title);
+    app.post('/added-post', function(req, res) {
+        // Saves data to database
+        let sqlquery = "INSERT INTO posts (title, content) VALUES (?,?)"; 
+
+        // Prepares the data for query
+        let newrecord = [req.body.title, req.body.content];
+        // Executes sql query
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                return console.error(err.message);
+            }
+            
+            // Confirmation message
+            else {
+                res.send("This post has been added to database: title: " + 
+                req.body.title + ",   content: " + req.body.content);
+
+            }
+
+        });
 
     });
 
     // SEARCH POSTS
     app.get('/search', function(req, res){
-        res.render('search.html', websiteData)
+        res.render('search.ejs', websiteData)
     });
 
     // Search results page : research into how to incorporate it into client-side html / apply client-side css
