@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title><%=websiteName%></title>
+
+    </head>
+
+    <body>
+        <h1>Add post to <%=websiteName%></h1>
+
+        <!-- Sets up form with two inputs and a submit button -->
+        <form action="/added-post" method="GET">
+            <input id="search-box" type="text" name="title" value="title" />
+            <input id="search-box" type="text" name="content" value="content" />
+            <input type="submit" value="Add Post" />
+        </form>
+
+    </body>
+
+
+</html>
