@@ -30,7 +30,7 @@ global.db = db;
 // Static Files - sets up css
 app.use(express.static(__dirname + '/public'));
 
-// Defines website data
+// Defines website metadata
 var websiteData = {websiteName: "School Net"}
 
 // Sets the directory where Express will pick up html files

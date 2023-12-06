@@ -55,7 +55,8 @@ module.exports = function(app, websiteData) {
     // POSTS LIST PAGE
     app.get('/posts', function(req, res){
         // Queries database to get all the users
-        let sqlquery = "SELECT title, content FROM posts"
+        let sqlquery = "SELECT title, content, datePosted, topic_id FROM posts";
+
 
         // Executes sql query
         db.query(sqlquery, (err, result) => {
@@ -66,7 +67,6 @@ module.exports = function(app, websiteData) {
 
             // Creates object combining websiteData and database topics
             let newData = Object.assign({}, websiteData, {allPosts:result});
-            console.log(newData.allPosts[0].title);
             res.render('posts.ejs', newData);
 
         });
@@ -79,10 +79,11 @@ module.exports = function(app, websiteData) {
 
     app.post('/added-post', function(req, res) {
         // Saves data to database
-        let sqlquery = "INSERT INTO posts (title, content) VALUES (?,?)"; 
+        let sqlquery = `INSERT INTO posts (title, content, user_id, topic_id, datePosted) 
+                        VALUES (?,?,?,?,?)`; 
 
         // Prepares the data for query
-        let newrecord = [req.body.title, req.body.content];
+        let newrecord = [req.body.title, req.body.content, req.body.user_id, req.body.topic_id, req.body.datePosted];
         // Executes sql query
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {

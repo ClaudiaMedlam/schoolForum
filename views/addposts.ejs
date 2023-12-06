@@ -8,10 +8,13 @@
     <body>
         <h1>Add post to <%=websiteName%></h1>
 
-        <!-- Sets up form with two inputs and a submit button -->
+        <!-- Sets up form with four inputs and a submit button -->
         <form method="POST" action="/added-post">
             <p>Title:</p><input id="title" type="text" name="title" value="title" />
             <p>Content:</p><input id="content" type="text" name="content" value="content" />
+            <p>User Name:</p><input id="user_id" type="number" name="user_id" value="1" />
+            <p>Topic Name:</p><input id="topic_id" type="number" name="topic_id" value="2" />
+            <p>Date Posted:</p><input id="datePosted" type="datetime-local" name="datePosted" value="date" />
             <input type="submit" value="Add Post" />
         </form>
 
