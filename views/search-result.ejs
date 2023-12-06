@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%=websiteName%></title>
+  </head>
+  <body>
+    <h1>Search <%=websiteName%></h1>
+    <h2>The following posts match your search:</h2>
+    
+    <ul> 
+        <!-- Inputs books data from search and database-->
+        <% for(let i = 0; i < foundPosts.length; i++) {%>
+            <li><%= foundPosts[i].title%>, <%=foundPosts[i].content%>, by <%=foundPosts[i].user_id%>
+            </li>
+        <% } %>
+    </ul>
+    
+  </body>
+</html>

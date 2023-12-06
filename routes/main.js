@@ -106,10 +106,23 @@ module.exports = function(app, websiteData) {
         res.render('search.ejs', websiteData)
     });
 
-    // Search results page : research into how to incorporate it into client-side html / apply client-side css
-    app.get('/search-result', function(req, res) {
 
-        res.send("You searched for a post with the keyword: " + req.query.keyword);
+    // Search results return posts that contain the keyword entered in /search
+    app.get('/search-result', function (req, res) { 
+        // Searching the database
+        let sqlquery = "SELECT title, content, user_id FROM posts WHERE title LIKE ?";
+       
+        // Execute sql query with wildcards to perform a case-insensitive partial match
+        let searchRecord = ['%' + req.query.keyword + '%'];
+        db.query(sqlquery, searchRecord, (err, result) => {
+        if (err) {
+            return console.error(err.message);
+        }
+
+        // Create object combining shopData and search result
+        let newData = Object.assign({}, websiteData, {foundPosts:result});
+        res.render('search-result.ejs', newData)
+        });
 
     });
 }
