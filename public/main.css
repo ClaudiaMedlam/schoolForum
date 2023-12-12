@@ -1,33 +1,77 @@
 body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
 
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px;
-            text-align: center;
-        }
+/* Home Page Formatting */
+.jumbotron-header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
 
-        nav {
-            background-color: #444;
-            color: white;
-            padding: 10px;
-        }
+.mainmenu-background {
+    background-color: #444;
+    color: white;
+    padding: 10px;
+}
 
-        main {
-            display: flex;
-            flex: 1;
-        }
+.homepage-main {
+    display: flex;
+    flex: 1;
+}
 
-        section {
-            flex: 1;
-            padding: 20px;
-            border: 1px solid #ccc;
-            margin: 10px;
-            box-sizing: border-box;
-        }
+section {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+/* POSTS PAGE */
+.posts-subhead {
+    color: #333;
+}
+
+.posts-list {
+    list-style: none;
+    padding: 0;
+}
+
+.posts-items {
+    border: 1px solid #ccc;
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style the boxes for each post */
+.posts-topic-box,
+.posts-title-box {
+    font-size: medium;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.posts-content-box {
+    border: 1px solid #ccc;
+    padding: 10px 20px 0px 20px;
+    height: max-content;
+    min-height: 150px;
+    margin-bottom: 0px;
+}
+
+.posts-user-date-box {
+    font-size: smaller;
+    padding: 0px 20px;
+    margin-top: 0px; /* Align at the bottom of the post-item */
+}

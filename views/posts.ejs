@@ -2,22 +2,36 @@
 <html>
   <head>
     <title><%=websiteName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css"/>
 
   </head>
   <body>
-    <h1><%=websiteName%>: Posts</h1>
-    <p>Here are the posts:</p>
-    
-    <ul> 
-        <!-- Input topic data from database here -->
-        <% for(let i = 0; i < allPosts.length; i++) {%>
-          <li>
-              <p>Title:<%= allPosts[i].title%></p>
-              <p>Content:<%= allPosts[i].content%></p>
-              <p>Date:<%= allPosts[i].datePosted%></p>
-              <p>Topic:<%= allPosts[i].topic_id%></p>
-          </li>
-        <% } %>
-    </ul>
+    <header class="jumbotron-header">
+      <h1><%=websiteName%>: Posts</h1>
+    </header>
+
+    <main>
+      <h2 class="posts-subhead">Here are the posts:</h2>
+      <ul class="posts-list"> 
+          <!-- Input topic data from database here -->
+          <% for(let i = 0; i < allPosts.length; i++) {%>
+            <li class="posts-items">
+                <div class="posts-topic-box">
+                  <p><%= allPosts[i].topic_title%></p>
+                </div>
+                <div class="posts-title-box">
+                  <p><%= allPosts[i].post_title%></p>
+                </div>
+                <div class="posts-content-box">
+                  <p><%= allPosts[i].post_content%></p>
+                </div>
+                <div class="posts-user-date-box">
+                  <p><strong><%= allPosts[i].user_name%></strong> posted on <strong><%= allPosts[i].post_date%></strong></p>
+                </div>
+                
+            </li>
+          <% } %>
+      </ul>
+    </main>
   </body>
 </html>

@@ -55,7 +55,8 @@ module.exports = function(app, websiteData) {
     // POSTS LIST PAGE
     app.get('/posts', function(req, res){
         // Queries database to get all the users
-        let sqlquery = "SELECT title, content, datePosted, topic_id FROM posts";
+        let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
+                        FROM vw_posts`;
 
 
         // Executes sql query
@@ -65,8 +66,21 @@ module.exports = function(app, websiteData) {
                 res.redirect('./');
             }
 
+            // Format date function
+            function formatDate(date) {
+                return new Date(date).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: '2-digit'
+                });
+    }
+            // Format the date in the result
+            const formattedResult = result.map(post => {
+            return { ...post, post_date: formatDate(post.post_date) };
+            });
+
             // Creates object combining websiteData and database topics
-            let newData = Object.assign({}, websiteData, {allPosts:result});
+            let newData = Object.assign({}, websiteData, {allPosts:formattedResult});
             res.render('posts.ejs', newData);
 
         });
