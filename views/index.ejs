@@ -2,17 +2,75 @@
 <html>
   <head>
     <title><%=websiteName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css"/>
 
   </head>
   <body>
-    <h1>Welcome to <%=websiteName%></h1>
+    <header>
+      <h1>Welcome to <%=websiteName%></h1>
+    </header>
 
-    <!-- Links to each of the pages on the web application -->
-    <p><a href="about">About <%=websiteName%></a></p>
-    <p><a href="topics">See all topics</a></p>
-    <p><a href="users">See all users</a></p>
-    <p><a href="posts">See all posts</a></p>
-    <p><a href="addposts">Add to posts</a></p>
-    <p><a href="search">Search all posts</a></p>
+    <nav class="mainmenu-background">
+      <!-- Navigation links to each of the pages in nav bar -->
+      <ul class="mainmenu-list">
+        <li class="mainmenu-items"><a href="about">About <%=websiteName%></a></p>
+        <li class="mainmenu-items"><a href="topics">See all topics</a></p>
+        <li class="mainmenu-items"><a href="users">See all users</a></p>
+        <li class="mainmenu-items"><a href="posts">See all posts</a></p>
+        <li class="mainmenu-itemsu"><a href="addposts">Add to posts</a></p>
+        <li class="mainmenu-items"><a href="search">Search all posts</a></p>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="topics">
+        <h1 class="topics">Topics</h1>
+        <h2>[Link to topic page?]</h2>
+        <ul>
+          <li><p class="topic">Topic 1</p></li>
+          <li><p class="topic">Topic 2</p></li>
+          <li><p class="topic">Topic 3</p></li>
+          <li><p class="topic">Topic 4</p></li>
+          <li><p class="topic">Topic 5</p></li>
+          <li><p class="topic">Topic 6</p></li>
+          <li><p class="topic">Topic 7</p></li>
+          <li><p class="topic">Topic 8</p></li>
+          <li><p class="topic">Topic 9</p></li>
+          <li><p class="topic">Topic 10</p></li>
+          <li><p class="topic">See all topics...</p></li>
+        </ul>
+      </section>
+
+      <section class="posts">
+        <h1 class="posts">Posts</h1>
+        <h2>[Link to posts page]</h2>
+        <ul>
+          <li><p class="posts">Post 1</p></li>
+          <li><p class="posts">Post 2</p></li>
+          <li><p class="posts">Post 3</p></li>
+          <li><p class="posts">Post 4</p></li>
+          <li><p class="posts">Post 5</p></li>
+          <li><p class="posts">Post 6</p></li>
+          <li><p class="posts">Post 7</p></li>
+          <li><p class="posts">Post 8</p></li>
+          <li><p class="posts">Post 9</p></li>
+          <li><p class="posts">Post 10</p></li>
+          <li><p class="posts">See all posts...</p></li>
+        </ul>
+      </section>
+
+      <section class="users">
+        <h1>Users</h1>
+        <h2>User Profile</h2>
+        <p>See all other users</p>
+      </section>
+
+      <section class="about">
+        <h1 class="About">About [School Name]</h1>
+        <h2>Find out all about us</h2>
+        <p>Rules of the website?</p>
+      </section>
+
+    </main>
   </body>
 </html>
