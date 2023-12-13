@@ -8,13 +8,28 @@
     <body>
         <h1>Add post to <%=websiteName%></h1>
 
+        <!-- Display error message if it exists -->
+        <% if(errorMessage) { %>
+            <p style="color: red;"><%= errorMessage %></p>
+        <% } %>
+
         <!-- Sets up form with four inputs and a submit button -->
         <form method="POST" action="/added-post">
-            <p>Title:</p><input id="posts_title" type="text" name="posts_title" value="title" />
-            <p>Content:</p><input id="posts_content" type="text" name="content" value="content" />
-            <p>User Name:</p><input id="user_id" type="number" name="user_id" value="1" />
-            <p>Topic Name:</p><input id="topic_id" type="number" name="topic_id" value="2" />
-            <p>Date Posted:</p><input id="posts_date" type="datetime-local" name="datePosted" value="date" />
+            <!-- User inputs title and content -->
+            <p>Title:</p><input id="post_title" type="text" name="post_title" value="title" />
+            <p>Content:</p><input id="post_content" type="text" name="post_content" value="content" />
+            <!-- User input for user name for moment-->
+            <p>User Name:</p><input id="user" type="text" name="user_name" value="name" />
+            <!-- Dropdown lists for Topic-->
+            <p>Topic Name:</p>
+                <select>
+                    <!-- Inputs books data from search and database-->
+                    <% for(let i = 0; i < availableTopics.length; i++) {%>
+                        <option value="<%= availableTopics[i].topic_id %>">
+                            <%= availableTopics[i].topic_title%>
+                        </option>
+                    <% } %>
+                </select>
             <input type="submit" value="Add Post" />
         </form>
 
