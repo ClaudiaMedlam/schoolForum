@@ -1,6 +1,7 @@
 module.exports = function(app, websiteData, passport) {
         
     // Handles routes
+    // ************************************************************************
     // HOME PAGE
     app.get('/', function(req, res){
         // Include user information if available:
@@ -45,6 +46,7 @@ module.exports = function(app, websiteData, passport) {
         });
     }
 
+    // ************************************************************************
     // LOGIN PAGE 
     app.get('/login', function(req, res) {
         res.render('login.ejs', websiteData);
@@ -74,13 +76,14 @@ module.exports = function(app, websiteData, passport) {
 
     };
 
+    // ************************************************************************
     // USER PROFIILE?
     app.get('/profile', isAuthenticated, (req, res) => {
         res.render('profile.ejs', websiteData);
     });
 
 
-
+    // ************************************************************************
     // ABOUT PAGE
     app.get('/about', function(req, res){
         res.render('about.ejs', websiteData)
@@ -88,6 +91,7 @@ module.exports = function(app, websiteData, passport) {
 
 
 
+    // ************************************************************************
     // TOPICS LIST PAGE
     app.get('/topics', function(req, res){
         // Queries database to get all the topics
@@ -107,6 +111,7 @@ module.exports = function(app, websiteData, passport) {
         });
     });
 
+    // ************************************************************************
     // USER LIST PAGE
     app.get('/users', function(req, res){
         // Queries database to get all the users
@@ -126,6 +131,7 @@ module.exports = function(app, websiteData, passport) {
         });
     });
 
+    // ************************************************************************
     // POSTS
     // POSTS LIST PAGE
     app.get('/posts', function(req, res){
@@ -196,6 +202,7 @@ module.exports = function(app, websiteData, passport) {
         })
     });
 
+    // ************************************************************************
     // SEARCH POSTS
     app.get('/search', function(req, res){
         res.render('search.ejs', websiteData)

@@ -12,6 +12,12 @@ VALUES('Anna', 'anna@karenina.com', 'p4ssword'),
 ('David', 'david@copperfield.com', 'password!'),
 ('Emma', 'emma@bovary.com', 'Password') ;
 
+INSERT INTO topics (topic_title)
+VALUES ('Uniform'), ('Trips'), ('Lunch'), ('Assemblies'),
+('Reception Year'), ('Year 1'), ('Year 2'), ('Year 3'), ('Year 4'), ('Year 5'), ('Year 6'), 
+('School Socials'), ('Projects');
+
+
 -- # Creating sql stored procedure:
 DELIMITER //
 CREATE PROCEDURE sp_insert_post(IN p_post_title MEDIUMTEXT, IN p_post_content LONGTEXT, in p_topic_title VARCHAR(150), IN p_user_name VARCHAR(50))

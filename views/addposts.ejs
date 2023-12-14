@@ -26,9 +26,23 @@
       <section class="addposts-section">
             <!-- Sets up form with four inputs and a submit button -->
             <form method="POST" action="/added-post">
-                <!-- User input for user name for moment-->
+                <!-- User input for user name for moment IF TIME AUTO FROM LOGIN-->
                 <div class="addposts-username">
-                    <input id="user" type="text" name="user_name" value="Please enter your name here:" />
+                    <label class="addposts-label">Please enter your username here:</label>
+                    <input class="addposts-input-user" id="user" type="text" name="user_name" value="Please enter your name here:" />
+                </div>
+
+                <!-- Dropdown lists for Topic-->
+                <div class="addposts-topic">
+                    <label class="addposts-label" for="topic">Choose the Topic for your Post</label>
+                    <select class="addposts-input-dropdown" id="topic" name="topic_title">
+                        <!-- Inputs books data from search and database-->
+                        <% for(let i = 0; i < availableTopics.length; i++) {%>
+                            <option value="<%= availableTopics[i].topic_title %>">
+                                <%= availableTopics[i].topic_title%>
+                            </option>
+                        <% } %>
+                    </select>
                 </div>
                 
                 <!-- Title input -->
@@ -38,26 +52,12 @@
 
                 <!-- Content input -->
                 <div class="addposts-content">
-                    <label class="addposts-label" for="post_content">Content:</label>
-                    <input id="post_content" type="text" name="post_content" value="Add content here."/>
-                </div>
-                
-                <!-- Dropdown lists for Topic-->
-                <div class="addposts-topic">
-                <label class="addposts-label" for="topic">Choose the Topic for your Post</label>
-                    <select id="topic" name="topic_title">
-                        <!-- Inputs books data from search and database-->
-                        <% for(let i = 0; i < availableTopics.length; i++) {%>
-                            <option value="<%= availableTopics[i].topic_title %>">
-                                <%= availableTopics[i].topic_title%>
-                            </option>
-                        <% } %>
-                    </select>
+                    <textarea class="addposts-input-content" id="post_content" name="post_content" rows="5" cols="33">Enter Post Here.</textarea>
                 </div>
 
                 <!-- Submit button-->
                 <div class="addposts-button">
-                    <input type="submit" value="Add Post" />
+                    <input class="addposts-input-button" type="submit" value="Add Post" />
                 </div>
             </form>
         </section>

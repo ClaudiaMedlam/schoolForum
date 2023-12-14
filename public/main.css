@@ -265,17 +265,54 @@ body {
 }
 
 .addposts-label {
-    font-size: normal;
+    display: block;
+    margin-bottom: 5px;
 }
-   
-.addposts-title {
+
+.addposts-input-user {
     border: 1px solid #ccc;
     color: #ccc;
-    padding: 20px;
-    height: min-content;
-    min-height: 1em;
+    padding: 10px;
+    height: 1em;
+    max-width: fit-content;
+    min-width: 228px;
     margin-bottom: 0px;
+    border-radius: 5px;
+}
+
+.addposts-input-dropdown {
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 0px 10px;
+    height: 2.5em;
+    width: 250px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+}
+   
+.addposts-input-title {
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 10px;
+    min-height: 1em;
+    height: max-content;
     width: 50%;
+    margin-bottom: 0px;
+    border-radius: 5px;
+
+}
+
+.addposts-input-content {
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 10px;
+    min-height: 100px;
+    height: max-content;
+    width: 50%;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    vertical-align: top;
 
 }
 
@@ -284,10 +321,20 @@ body {
 .addposts-username,
 .addposts-topic,
 .addposts-button {
-    border: 1px solid #ccc;
-    padding: 10px 20px 0px 20px;
-    height: max-content;
-    min-height: 150px;
-    margin-bottom: 0px;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+
+ }
+
+ /* ********************************************** */
+ .searchpage-section {
+
+ }
+
+ .searchpage-searchbox {
+
+ }
+
+ .searchpage-submit {
 
  }
