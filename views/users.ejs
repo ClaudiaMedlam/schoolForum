@@ -23,13 +23,13 @@
       </ul>
     </nav>
     
-    <section>
-      <p>List of users:</p>
+    <section class="userspage-section">
+      <p class="userspage-p">All current parents at the school can sign up for access to this forum. Active users are listed below:</p>
       
-      <ul> 
+      <ul class="userspage-list"> 
           <!-- Input topic data from database here -->
           <% for(let i = 0; i < allUsers.length; i++) {%>
-            <li><%= allUsers[i].user_name%></li>
+            <li class="userspage-items"><%= allUsers[i].user_name%>: <%= allUsers[i].user_email%></li>
           <% } %>
       </ul>
     </section>

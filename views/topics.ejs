@@ -23,13 +23,13 @@
       </ul>
     </nav>
     
-    <section>
-      <p>Here are the topics available for discussion:</p>
+    <section class="topicspage-section">
+      <p class="topicspage-p">Here are the topics available for discussion, arranged in alphabetical order:</p>
     
-      <ul> 
+      <ul class="topicspage-list"> 
         <!-- Input topic data from database here -->
         <% for(let i = 0; i < availableTopics.length; i++) {%>
-          <li><%= availableTopics[i].topic_title%></li>
+          <li class="topicspage-items"><%= availableTopics[i].topic_title%></li>
         <% } %>
       </ul>
     </section>

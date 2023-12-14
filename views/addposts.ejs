@@ -23,25 +23,42 @@
         </ul>
       </nav>
       
-      <section>
+      <section class="addposts-section">
             <!-- Sets up form with four inputs and a submit button -->
             <form method="POST" action="/added-post">
-                <!-- User inputs title and content -->
-                <p>Title:</p><input id="post_title" type="text" name="post_title" value="title" />
-                <p>Content:</p><input id="post_content" type="text" name="post_content" value="content" />
                 <!-- User input for user name for moment-->
-                <p>User Name:</p><input id="user" type="text" name="user_name" value="name" />
+                <div class="addposts-username">
+                    <input id="user" type="text" name="user_name" value="Please enter your name here:" />
+                </div>
+                
+                <!-- Title input -->
+                <div class="addposts-title">
+                    <input class="addposts-input-title" id="post_title" type="text" name="post_title" value="Title"/>
+                </div>
+
+                <!-- Content input -->
+                <div class="addposts-content">
+                    <label class="addposts-label" for="post_content">Content:</label>
+                    <input id="post_content" type="text" name="post_content" value="Add content here."/>
+                </div>
+                
                 <!-- Dropdown lists for Topic-->
-                <p>Topic Name:</p>
-                    <select>
+                <div class="addposts-topic">
+                <label class="addposts-label" for="topic">Choose the Topic for your Post</label>
+                    <select id="topic" name="topic_title">
                         <!-- Inputs books data from search and database-->
                         <% for(let i = 0; i < availableTopics.length; i++) {%>
-                            <option value="<%= availableTopics[i].topic_id %>">
+                            <option value="<%= availableTopics[i].topic_title %>">
                                 <%= availableTopics[i].topic_title%>
                             </option>
                         <% } %>
                     </select>
-                <input type="submit" value="Add Post" />
+                </div>
+
+                <!-- Submit button-->
+                <div class="addposts-button">
+                    <input type="submit" value="Add Post" />
+                </div>
             </form>
         </section>
 

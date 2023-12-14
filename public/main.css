@@ -8,7 +8,7 @@ body {
     margin: 20px;
 }
 
-/* Home Page Formatting */
+/* Every page banner and nav bar */
 .jumbotron-header {
     background-color: #333;
     color: white;
@@ -47,73 +47,203 @@ body {
 }
 
 
+/* ********************************************************** */
 
-.container {
+/* Homepage formatting */
+.homepage-container {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr; 
     gap: 20px;
+    max-height: vw;
+    background-color: #444;
+    column-gap: 0;
+}
+
+.homepage-headings {
+    font-size:x-large;
+    font-weight: bold;
+}
+
+.homepage-subheadings {
+    font-size: large;
+    font-weight: normal;
+}
+
+.homepage-p {
+    font-size: normal;
+    line-height: 1.5;
+}
+
+.homepage-sections {
+    padding: 20px;
+    border-left: 2px solid #ccc;
+    border-bottom: 2px solid #444;
+    background-color: white;
+
 }
 .topics-section {
     grid: 1; /* Place in first column */
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
 }
 
 .topics-list {
-    list-style-type: square;
+    list-style-type: disc;
     padding-inline-start: 20px;
+    line-height: 2.5;
 }
 
 .posts-section {
     grid: 2; /* Place in middle section */
-    padding: 20px;
+}
+
+.post-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.post-items {
+    height: min-content;
+}
+
+.post-title {
     border: 1px solid #ccc;
-    box-sizing: border-box;
+    max-height: 1em;
+    margin-bottom: 5px;
+    margin-right: 100px;
+    padding: 5px;
+}
+
+.post-contents {
+    border: 1px solid #ccc;
+    min-height: 2em;
+    max-height: 6em;
+    margin-bottom: 20px;
+    margin-right: 100px;
+    padding: 5px;
 }
 
 .users-section {
     grid: 3; /* Place in third column */
     display: flex;
     flex-direction: column;
+    border-right: 2px solid #ccc;
+
 }
 
 .about-section {
     flex: 1; /* Take remaining vertical space in third column */
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin: 10px;
-    box-sizing: border-box;
+    border-top: 2px solid #ccc;
+    border-left: none;
+    border-bottom: none;
+    margin-top: 50px;
+    padding: 20px 0px 0px 0px;
+
 }
 
-/* POSTS PAGE */
-.posts-subhead {
+
+/* ********************************************************** */
+
+/* ABOUT PAGE formatting */
+.aboutpage-section {
+    padding: 20px;
+}
+
+.aboutpage-p {
+    font-size: normal;
+    line-height: 1.5;
+}
+
+
+
+/* ********************************************************** */
+
+/* TOPICS PAGE formatting */
+.topicspage-section {
+    padding: 20px;
+}
+
+.topicspage-p {
+    font-size: normal;
+    line-height: 1.5;
+}
+
+.topicspage-list {
+    list-style-type: disc;
+    padding-inline-start: 20px;
+    line-height: 2.5;
+}
+
+
+
+
+/* ********************************************************** */
+
+/* USER PAGE formatting */
+.userspage-section {
+    padding: 20px;
+}
+
+.userspage-p {
+    font-size: normal;
+    line-height: 1.5;
+}
+
+.userspage-list {
+    list-style-type: disc;
+    padding-inline-start: 20px;
+    line-height: 2.5;
+}
+
+
+
+/* ********************************************************** */
+
+/* POSTS PAGE formatting */
+.postspage-main {
+    padding: 20px;
+}
+.postspage-subheading {
     color: #333;
 }
 
-.posts-list {
+.postspage-list {
     list-style: none;
     padding: 0;
 }
 
-.posts-items {
-    border: 1px solid #ccc;
+.postspage-items {
+    border: 2px solid #444;
     width: 50%;
     padding: 10px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 /* Style the boxes for each post */
-.posts-topic-box,
-.posts-title-box {
+.postspage-topic-box {
+    font-size: smaller;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background-color: #444;
+    color: white;
+    padding: 0px 20px;
+    margin-bottom: 10px;
+}
+
+.postspage-topic-p {
+    margin: 2px;
+}
+
+.postspage-title-box {
     font-size: medium;
     border: 1px solid #ccc;
     padding: 10px 20px;
     margin-bottom: 10px;
 }
 
-.posts-content-box {
+.postspage-content-box {
     border: 1px solid #ccc;
     padding: 10px 20px 0px 20px;
     height: max-content;
@@ -121,8 +251,43 @@ body {
     margin-bottom: 0px;
 }
 
-.posts-user-date-box {
+.postspage-user-date-box {
     font-size: smaller;
     padding: 0px 20px;
     margin-top: 0px; /* Align at the bottom of the post-item */
 }
+
+/* ********************************************************** */
+
+/* ADD POSTS PAGE formatting */
+.addposts-section {
+    padding: 20px;
+}
+
+.addposts-label {
+    font-size: normal;
+}
+   
+.addposts-title {
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 20px;
+    height: min-content;
+    min-height: 1em;
+    margin-bottom: 0px;
+    width: 50%;
+
+}
+
+.addposts-title,
+.addposts-content,
+.addposts-username,
+.addposts-topic,
+.addposts-button {
+    border: 1px solid #ccc;
+    padding: 10px 20px 0px 20px;
+    height: max-content;
+    min-height: 150px;
+    margin-bottom: 0px;
+
+ }

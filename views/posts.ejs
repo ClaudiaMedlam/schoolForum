@@ -23,22 +23,25 @@
       </ul>
     </nav>
 
-    <main>
-      <h2 class="posts-subhead">Here are the posts:</h2>
-      <ul class="posts-list"> 
+    <main class="postspage-main">
+      <h2 class="postspage-subheading">Here are the posts:</h2>
+      <ul class="postspage-list"> 
           <!-- Input topic data from database here -->
           <% for(let i = 0; i < allPosts.length; i++) {%>
-            <li class="posts-items">
-                <div class="posts-topic-box">
-                  <p><%= allPosts[i].topic_title%></p>
+            <li class="postspage-items">
+                <div class="postspage-topic-box">
+                  <p class="postspage-topic-p"><%= allPosts[i].topic_title%></p>
                 </div>
-                <div class="posts-title-box">
+
+                <div class="postspage-title-box">
                   <p><%= allPosts[i].post_title%></p>
                 </div>
-                <div class="posts-content-box">
+
+                <div class="postspage-content-box">
                   <p><%= allPosts[i].post_content%></p>
                 </div>
-                <div class="posts-user-date-box">
+                
+                <div class="postspage-user-date-box">
                   <p><strong><%= allPosts[i].user_name%></strong> posted on <strong><%= allPosts[i].post_date%></strong></p>
                 </div>
                 

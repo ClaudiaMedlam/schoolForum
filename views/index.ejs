@@ -23,10 +23,10 @@
       </ul>
     </nav>
 
-    <main class="container">
-      <section class="topics-section">
-        <h1 class="topics heading">Topics</h1>
-        <p>These are some of the topics available. Please see the <a href="topics">Topics page</a> for the full Topic List.</p>
+    <main class="homepage-container">
+      <section class="homepage-sections  topics-section">
+        <h1 class="homepage-headings">Topics</h1>
+        <p class="homepage-p">These are some of the topics available. Please see the <a href="topics">Topics page</a> for the full Topic List.</p>
         <ul class="topics-list">
           <!-- Input topic data from database here -->
           <% for(let i = 0; i < availableTopics.length; i++) {%>
@@ -35,30 +35,29 @@
         </ul>
       </section>
 
-      <section class="posts">
-        <h1 class="posts">Posts</h1>
-        <h2>[Link to posts page]</h2>
-        <ul>
+      <section class="homepage-sections  posts-section">
+        <h1 class="homepage-headings">Posts</h1>
+        <p class="homepage-p">For all posts, please see the <a href="posts">Posts page</a>. To post, you need to be a member of the topic. Please note all posts are monitored and need to be approved before they will be shown.</p>
+        <ul class="post-list">
           <!-- Input posts data from database here -->
           <% for(let i = 0; i < availablePosts.length; i++) {%>
-            <li><%= availablePosts[i].post_title%></li>
-            <li><%= availablePosts[i].post_content%></li>
+            <li class="post-items post-title"><%= availablePosts[i].post_title%></li>
+            <li class="post-items post-contents"><%= availablePosts[i].post_content%></li>
           <% } %>
         </ul>
       </section>
 
-      <section class="users">
-        <h1>Users</h1>
+      <section class="homepage-sections  users-section">
+        <h1 class="homepage-headings">Users</h1>
         <!-- Input users data from database here -->
-        <% for(let i = 0; i < availableUsers.length; i++) {%>
-          <li><%= availableUsers[i].user_name%></li>
-        <% } %>
-      </section>
+        <p class="homepage-p">You can find the list of all users <a href="users">here</a>.</p>
+        <p class="homepage-p">You can log in to your user profile here</p>
 
-      <section class="about">
-        <h1 class="About">About [School Name]</h1>
-        <h2>Find out all about us</h2>
-        <p>Rules of the website?</p>
+        <section class="homepage-sections  about-section">
+          <h1 class="homepage-headings">About <%=websiteName%></h1>
+          <h2 class="homepage-subheadings">Find out all about us</h2>
+          <p class="homepage-p">Rules of the website?</p>
+        </section>
       </section>
 
     </main>
