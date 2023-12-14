@@ -1,5 +1,7 @@
 // Imports the modules needed
 var express = require ('express')
+var session = require('express-session');
+var flash = require('express-flash');
 var ejs = require('ejs')
 var mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -20,6 +22,16 @@ const db = mysql.createConnection ({
     password: 'app2027',
     database: 'schoolNet'
 });
+
+// Configure the express-session 
+app.use(session({
+    secret: 'Secret-Key',
+    resave: true,
+    saveUninitialized: true,
+}));
+
+// Use connect-flash middleware
+app.use(flash());
 
 // Connects to the database
 db.connect((err) => {
@@ -55,7 +67,7 @@ passport.use(new LocalStrategy((username, password, done) => {
     // Check username and password in the database
     let sqlquery = `SELECT * FROM users WHERE user_name = ?`;
     
-    db.query(sqlquery, [req.body.user_name], (err, result) => {
+    db.query(sqlquery, [username], (err, result) => {
         if(err) {
             return console.log.error(err);
         }    
@@ -95,7 +107,7 @@ passport.deserializeUser((user_id, done) => {
 
 // Requires the main.js file inside the routes folder passing in the Express app
 // and data as arguments.  All the routes are found in this file
-require('./routes/main')(app, websiteData);
+require('./routes/main')(app, websiteData, passport);
 
 
 // Starts the web app listening

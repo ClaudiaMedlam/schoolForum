@@ -3,18 +3,34 @@
 <html>
     <head>
         <title><%=websiteName%></title>
+        <link rel="stylesheet"  type="text/css" href="/main.css"/>
 
     </head>
-
     <body>
+      <header class="jumbotron-header">
         <h1>Search <%=websiteName%></h1>
-
-        <!-- Sets up form with one input and a submit button -->
-        <form action="/search-result" method="GET">
-            <input id="search-box" type="text" name="keyword" value="e.g. Uniform" />
-            <input type="submit" value="Search" />
-        </form>
-
+      </header>
+  
+      <nav class="mainmenu-background">
+        <!-- Navigation links to each of the pages in nav bar -->
+        <ul class="mainmenu-list">
+            <li class="mainmenu-items"><a class="mainmenu-link" href="/">Home Page</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="about">About <%=websiteName%></a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="topics">See all topics</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="users">See all users</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="posts">See all posts</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="addposts">Add to posts</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="search">Search all posts</a></li>
+        </ul>
+      </nav>
+      
+      <section>
+            <!-- Sets up form with one input and a submit button -->
+            <form action="/search-result" method="GET">
+                <input id="search-box" type="text" name="keyword" value="e.g. Uniform" />
+                <input type="submit" value="Search" />
+            </form>
+        </section>
     </body>
 
 

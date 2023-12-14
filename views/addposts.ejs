@@ -2,36 +2,49 @@
 <html>
     <head>
         <title><%=websiteName%></title>
+        <link rel="stylesheet"  type="text/css" href="/main.css"/>
 
     </head>
-
     <body>
+      <header class="jumbotron-header">
         <h1>Add post to <%=websiteName%></h1>
+      </header>
+  
+      <nav class="mainmenu-background">
+        <!-- Navigation links to each of the pages in nav bar -->
+        <ul class="mainmenu-list">
+            <li class="mainmenu-items"><a class="mainmenu-link" href="/">Home Page</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="about">About <%=websiteName%></a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="topics">See all topics</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="users">See all users</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="posts">See all posts</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="addposts">Add to posts</a></li>
+            <li class="mainmenu-items"><a class="mainmenu-link" href="search">Search all posts</a></li>
+        </ul>
+      </nav>
+      
+      <section>
+            <!-- Sets up form with four inputs and a submit button -->
+            <form method="POST" action="/added-post">
+                <!-- User inputs title and content -->
+                <p>Title:</p><input id="post_title" type="text" name="post_title" value="title" />
+                <p>Content:</p><input id="post_content" type="text" name="post_content" value="content" />
+                <!-- User input for user name for moment-->
+                <p>User Name:</p><input id="user" type="text" name="user_name" value="name" />
+                <!-- Dropdown lists for Topic-->
+                <p>Topic Name:</p>
+                    <select>
+                        <!-- Inputs books data from search and database-->
+                        <% for(let i = 0; i < availableTopics.length; i++) {%>
+                            <option value="<%= availableTopics[i].topic_id %>">
+                                <%= availableTopics[i].topic_title%>
+                            </option>
+                        <% } %>
+                    </select>
+                <input type="submit" value="Add Post" />
+            </form>
+        </section>
 
-        <!-- Display error message if it exists -->
-        <% if(errorMessage) { %>
-            <p style="color: red;"><%= errorMessage %></p>
-        <% } %>
-
-        <!-- Sets up form with four inputs and a submit button -->
-        <form method="POST" action="/added-post">
-            <!-- User inputs title and content -->
-            <p>Title:</p><input id="post_title" type="text" name="post_title" value="title" />
-            <p>Content:</p><input id="post_content" type="text" name="post_content" value="content" />
-            <!-- User input for user name for moment-->
-            <p>User Name:</p><input id="user" type="text" name="user_name" value="name" />
-            <!-- Dropdown lists for Topic-->
-            <p>Topic Name:</p>
-                <select>
-                    <!-- Inputs books data from search and database-->
-                    <% for(let i = 0; i < availableTopics.length; i++) {%>
-                        <option value="<%= availableTopics[i].topic_id %>">
-                            <%= availableTopics[i].topic_title%>
-                        </option>
-                    <% } %>
-                </select>
-            <input type="submit" value="Add Post" />
-        </form>
 
     </body>
 

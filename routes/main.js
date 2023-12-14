@@ -1,9 +1,82 @@
-module.exports = function(app, websiteData) {
+module.exports = function(app, websiteData, passport) {
         
     // Handles routes
     // HOME PAGE
     app.get('/', function(req, res){
-        res.render('index.ejs', websiteData)
+        // Include user information if available:
+        var secureData = {
+            // Includes all properties from websiteData
+            ...websiteData,
+            user: req.user,
+            message: "Incorrect input"
+
+        };
+
+        // Queries database to get all the topics
+        let sqlquery1 = "SELECT topic_title FROM topics";
+        let sqlquery2 = "SELECT post_title, post_content FROM posts"; 
+        let sqlquery3 = "SELECT user_name FROM users";
+
+        // Use Promise.all to execute all queries concurrently
+        Promise.all([
+            queryPromise(sqlquery1),
+            queryPromise(sqlquery2),
+            queryPromise(sqlquery3)
+        ]).then(([result1, result2, result3]) => {
+            // Creates object combining website & authentication data and database topics
+            let newData = Object.assign({}, secureData, {availableTopics:result1, availablePosts:result2, availableUsers:result3});
+            res.render('index.ejs', newData);
+        }).catch(err => {
+            console.error(err);
+            res.redirect('./');
+        })
+    });
+
+    // A helper function to promisify the database queries
+    function queryPromise(sql) {
+        return new Promise((resolve, reject) => {
+            db.query(sql, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    }
+
+    // LOGIN PAGE 
+    app.get('/login', function(req, res) {
+        res.render('login.ejs', websiteData);
+    })
+
+    // LOGIN ROUTE USING PASSPORT.AUTHENTICATE
+    app.post('/login', passport.authenticate('local', {
+        successRedirect: '/',
+        failureRedirect: '/login',
+        // Enable flash messages on failure
+        failureFlash: true,
+
+    }));
+
+    // LOGOUT PAGE
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    })
+
+    // Protect other routes using isAuthenticated middleware
+    const isAuthenticated = (req, res, next) => {
+        if(req.isAuthenticated()) {
+            return next();
+        }
+        res.redirect('login');
+
+    };
+
+    // USER PROFIILE?
+    app.get('/profile', isAuthenticated, (req, res) => {
+        res.render('profile.ejs', websiteData);
     });
 
     // ABOUT PAGE
@@ -23,7 +96,7 @@ module.exports = function(app, websiteData) {
                 res.redirect('./');
             }
 
-            // Creates object combining websiteData and database topics
+            // Creates object combining website & authentication data and database topics
             let newData = Object.assign({}, websiteData, {availableTopics:result});
             res.render('topics.ejs', newData);
 
@@ -42,7 +115,7 @@ module.exports = function(app, websiteData) {
                 res.redirect('./');
             }
 
-            // Creates object combining websiteData and database topics
+            // Creates object combining website & authentication data and database topics
             let newData = Object.assign({}, websiteData, {allUsers:result});
             res.render('users.ejs', newData);
 
@@ -77,7 +150,7 @@ module.exports = function(app, websiteData) {
             return { ...post, post_date: formatDate(post.post_date) };
             });
 
-            // Creates object combining websiteData and database topics
+            // Creates object combining website & authentication data and database topics
             let newData = Object.assign({}, websiteData, {allPosts:formattedResult});
             res.render('posts.ejs', newData);
 
@@ -96,8 +169,8 @@ module.exports = function(app, websiteData) {
                 res.redirect('./');
             }
 
-            // Creates object combining websiteData and database topics
-        // Creates object combining websiteData and database topics
+            // Creates object combining website & authentication data and database topics
+        // Creates object combining website & authentication data and database topics
         let newData = Object.assign({}, websiteData, {availableTopics:result});
         res.render('addposts.ejs', newData)
         });

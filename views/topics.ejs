@@ -2,17 +2,37 @@
 <html>
   <head>
     <title><%=websiteName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css"/>
 
   </head>
   <body>
-    <h1><%=websiteName%>: Topics List</h1>
-    <p>Here are the topics available for discussion:</p>
+    <header class="jumbotron-header">
+      <h1><%=websiteName%>: Topics List</h1>
+    </header>
+
+    <nav class="mainmenu-background">
+      <!-- Navigation links to each of the pages in nav bar -->
+      <ul class="mainmenu-list">
+          <li class="mainmenu-items"><a class="mainmenu-link" href="/">Home Page</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="about">About <%=websiteName%></a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="topics">See all topics</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="users">See all users</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="posts">See all posts</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="addposts">Add to posts</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="search">Search all posts</a></li>
+      </ul>
+    </nav>
     
-    <ul> 
+    <section>
+      <p>Here are the topics available for discussion:</p>
+    
+      <ul> 
         <!-- Input topic data from database here -->
         <% for(let i = 0; i < availableTopics.length; i++) {%>
           <li><%= availableTopics[i].topic_title%></li>
         <% } %>
-    </ul>
+      </ul>
+    </section>
+
   </body>
 </html>

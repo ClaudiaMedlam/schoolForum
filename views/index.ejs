@@ -13,31 +13,25 @@
     <nav class="mainmenu-background">
       <!-- Navigation links to each of the pages in nav bar -->
       <ul class="mainmenu-list">
-        <li class="mainmenu-items"><a href="about">About <%=websiteName%></a></p>
-        <li class="mainmenu-items"><a href="topics">See all topics</a></p>
-        <li class="mainmenu-items"><a href="users">See all users</a></p>
-        <li class="mainmenu-items"><a href="posts">See all posts</a></p>
-        <li class="mainmenu-itemsu"><a href="addposts">Add to posts</a></p>
-        <li class="mainmenu-items"><a href="search">Search all posts</a></p>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="/">Home Page</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="about">About <%=websiteName%></a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="topics">See all topics</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="users">See all users</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="posts">See all posts</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="addposts">Add to posts</a></li>
+          <li class="mainmenu-items"><a class="mainmenu-link" href="search">Search all posts</a></li>
       </ul>
     </nav>
 
-    <main class="homepage-main">
+    <main class="container">
       <section class="topics-section">
         <h1 class="topics heading">Topics</h1>
-        <h2>[Link to topic page?]</h2>
-        <ul>
-          <li><p class="topics-items">Topic 1</p></li>
-          <li><p class="topics-items">Topic 2</p></li>
-          <li><p class="topics-items">Topic 3</p></li>
-          <li><p class="topics-items">Topic 4</p></li>
-          <li><p class="topics-items">Topic 5</p></li>
-          <li><p class="topics-items">Topic 6</p></li>
-          <li><p class="topics-items">Topic 7</p></li>
-          <li><p class="topics-items">Topic 8</p></li>
-          <li><p class="topics-items">Topic 9</p></li>
-          <li><p class="topics-items">Topic 10</p></li>
-          <li><p class="topics-items">See all topics...</p></li>
+        <p>These are some of the topics available. Please see the <a href="topics">Topics page</a> for the full Topic List.</p>
+        <ul class="topics-list">
+          <!-- Input topic data from database here -->
+          <% for(let i = 0; i < availableTopics.length; i++) {%>
+            <li class="topics-items"><%= availableTopics[i].topic_title%></li>
+          <% } %>
         </ul>
       </section>
 
@@ -45,24 +39,20 @@
         <h1 class="posts">Posts</h1>
         <h2>[Link to posts page]</h2>
         <ul>
-          <li><p class="posts">Post 1</p></li>
-          <li><p class="posts">Post 2</p></li>
-          <li><p class="posts">Post 3</p></li>
-          <li><p class="posts">Post 4</p></li>
-          <li><p class="posts">Post 5</p></li>
-          <li><p class="posts">Post 6</p></li>
-          <li><p class="posts">Post 7</p></li>
-          <li><p class="posts">Post 8</p></li>
-          <li><p class="posts">Post 9</p></li>
-          <li><p class="posts">Post 10</p></li>
-          <li><p class="posts">See all posts...</p></li>
+          <!-- Input posts data from database here -->
+          <% for(let i = 0; i < availablePosts.length; i++) {%>
+            <li><%= availablePosts[i].post_title%></li>
+            <li><%= availablePosts[i].post_content%></li>
+          <% } %>
         </ul>
       </section>
 
       <section class="users">
         <h1>Users</h1>
-        <h2>User Profile</h2>
-        <p>See all other users</p>
+        <!-- Input users data from database here -->
+        <% for(let i = 0; i < availableUsers.length; i++) {%>
+          <li><%= availableUsers[i].user_name%></li>
+        <% } %>
       </section>
 
       <section class="about">
