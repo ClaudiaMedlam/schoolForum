@@ -182,89 +182,18 @@ module.exports = function(app, websiteData, passport) {
     });
 
     app.post('/added-post', function(req, res) {
-        let user_id = -1;
-        let topic_id = -1;
+        // Using SQL Stored Procedure
+        let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name]
+        let sqlquery = `CALL sp_add_post(?, ?, ?, ?)`
 
-        // Log the received form data
-        console.log("Received form data:", req.body);
+        console.log("Parameters are: " + params);
 
-        // Get user id from the user name:
-        let sqlquery = `SELECT * FROM users WHERE user_name = ?`
-        db.query(sqlquery, [req.body.user_name], (err, result) => {
+        db.query(sqlquery, params, (err, result) => {
             if(err) {
-                console.error(err.message);
-                return res.status(500).send("internal Server Error");
-
+                return res.status(500).send("internal Server Error"); 
             }
-
-            if (result.length==0) {
-                console.log("User is not found")
-                return res.status(404).send("user not found");
-                // return renderAddNewPost(res, req.body, "Cannot find that user");
-
-            }
-
-            user_id = result[0].user_id;
-            console.log("User is " + user_id);
-
-            // Get the topic id from the topic title
-            sqlquery = `SELECT * FROM topics WHERE topic_title = ?`
-            db.query(sqlquery, [req.body.topic_title], (err, result) => {
-                if(err) {
-                    console.error(err.message);
-                    return res.status(500).send("Internal Server Error");
-                }
-
-                if(result.length==0) {
-                    console.log("No results for the topic query");
-                    console.log("SQL Query:", sqlquery);
-                    console.log("Query Result:", result);
-                    // return renderAddNewPost(res, req.body, "No topic selected");
-                    return res.status(404).send("topic not found");
-                }
-
-                topic_id = result[0].topic_id;
-                console.log("Topic is " + topic_id);
-                
-                // Count membership from userTopic table
-                sqlquery = `SELECT COUNT(*) as countmembership FROM userTopic WHERE user_id=? AND topic_id=?;`
-                db.query(sqlquery, [user_id, topic_id], (err, result) => {
-                    if(err) {
-                        console.error(err.message);
-                        return res.status(500).send("Internal Server Error");
-                    }
-
-                    if(result[0].countmembership==0) {
-                        console.log("User is not a member of that topic");
-                        return res.status(404).send("You need to be a member of the topic to post. Please contact the moderator to gain access to the topic");
-                        // return renderAddNewPost(res, req.body, "User is not a member of that topic");
-                    }
-
-                    // Insert the post, save data to database
-                    sqlquery = `INSERT INTO posts (post_date, post_title, post_content, user_id, topic_id)
-                                VALUES (now(), ?, ?, ?, ? )`
-
-                    // Prepares the data for query
-                    let newrecord = [req.body.post_title, req.body.post_content, user_id, topic_id];
-
-                    // Executes sql query
-                    db.query(sqlquery, newrecord, (err, result) => {
-                        if (err) {
-                            console.error(err.message);
-                            return res.status(500).send("Internal Server Error");
-                        }
-                    
-                        // Confirmation message
-                        else {
-                            res.send("Your post has been added to the forum");
-
-                        }
-                    })
-                })
-                    
-            })
-
-        });
+            res.send("Your post has been added to the forum")
+        })
     });
 
     // SEARCH POSTS
