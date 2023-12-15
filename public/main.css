@@ -316,25 +316,116 @@ body {
 
 }
 
-.addposts-title,
-.addposts-content,
-.addposts-username,
-.addposts-topic,
-.addposts-button {
+.addposts-input-button {
+    border: 1px solid #444;
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    height: auto;
+    width: 150px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+.addposts-div {
     padding: 10px 0px;
     margin-bottom: 10px;
 
  }
 
  /* ********************************************** */
+ /* SEARCH PAGE */
  .searchpage-section {
-
+    padding: 20px;
  }
 
- .searchpage-searchbox {
+ .searchpage-p {
+    font-size: normal;
+    line-height: 1.5;
+}
 
+ .searchpage-div {
+    padding: 10px 0px;
+    margin-bottom: 10px;
  }
 
- .searchpage-submit {
-
+ .searchpage-input {
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 10px;
+    min-height: 1em;
+    height: auto;
+    width: 25%;
+    margin-bottom: 0px;
+    border-radius: 5px;
  }
+
+ .searchpage-button {
+    border: 1px solid #444;
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    height: auto;
+    width: 150px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+ }
+
+ /* ********************************************** */
+ /* SEARCH RESULTS */
+.searchresult-section {
+    padding: 20px;
+}
+
+ .searchresult-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.searchresult-items {
+    border: 2px solid #444;
+    width: 50%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.searchresult-topic-box {
+    font-size: smaller;
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    background-color: #444;
+    color: white;
+    padding: 0px 20px;
+    margin-bottom: 10px;
+    height: auto;
+}
+
+.searchresult-topic-p {
+    margin: 2px;
+}
+
+.searchresult-title-box {
+    font-size: medium;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.searchresult-content-box {
+    border: 1px solid #ccc;
+    padding: 10px 20px 0px 20px;
+    height: max-content;
+    min-height: 150px;
+    margin-bottom: 0px;
+}
+
+.searchresult-user-date-box {
+    font-size: smaller;
+    padding: 0px 20px;
+    margin-top: 0px; /* Align at the bottom of the post-item */
+}

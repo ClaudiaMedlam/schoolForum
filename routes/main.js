@@ -211,20 +211,40 @@ module.exports = function(app, websiteData, passport) {
 
     // Search results return posts that contain the keyword entered in /search
     app.get('/search-result', function (req, res) { 
-        // Searching the database
-        let sqlquery = "SELECT post_title, post_content, user_id FROM posts WHERE post_title LIKE ?";
-       
+       // Searching the database
+        let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
+                        FROM vw_posts
+                        WHERE post_title LIKE ? OR post_content LIKE ?`;
+
+
         // Execute sql query with wildcards to perform a case-insensitive partial match
-        let searchRecord = ['%' + req.query.keyword + '%'];
+        let searchRecord = ['%' + req.query.keyword + '%', '%' + req.query.keyword + '%'];
         db.query(sqlquery, searchRecord, (err, result) => {
-        if (err) {
-            return console.error(err.message);
-        }
+            if (err) {
+                console.error(err.message);
+                return res.redirect('./');
+            }
 
-        // Create object combining shopData and search result
-        let newData = Object.assign({}, websiteData, {foundPosts:result});
-        res.render('search-result.ejs', newData)
-        });
+            if(result.length==0) {
+                return res.status(500).send("There are no posts containing that search term"); 
+            }
+            // Format date function
+            function formatDate(date) {
+                return new Date(date).toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: '2-digit'
+                });
+            }
+            // Format the date in the result
+            const formattedResult = result.map(post => {
+            return { ...post, post_date: formatDate(post.post_date) };
+            });
 
+            // Creates object combining website & authentication data and database topics
+            let newData = Object.assign({}, websiteData, {foundPosts:formattedResult});
+            res.render('search-result.ejs', newData);
+
+         });
     });
-}
+};

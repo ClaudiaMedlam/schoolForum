@@ -27,13 +27,13 @@
             <!-- Sets up form with four inputs and a submit button -->
             <form method="POST" action="/added-post">
                 <!-- User input for user name for moment IF TIME AUTO FROM LOGIN-->
-                <div class="addposts-username">
+                <div class="addposts-div">
                     <label class="addposts-label">Please enter your username here:</label>
                     <input class="addposts-input-user" id="user" type="text" name="user_name" value="Please enter your name here:" />
                 </div>
 
                 <!-- Dropdown lists for Topic-->
-                <div class="addposts-topic">
+                <div class="addposts-div">
                     <label class="addposts-label" for="topic">Choose the Topic for your Post</label>
                     <select class="addposts-input-dropdown" id="topic" name="topic_title">
                         <!-- Inputs books data from search and database-->
@@ -46,17 +46,17 @@
                 </div>
                 
                 <!-- Title input -->
-                <div class="addposts-title">
+                <div class="addposts-div">
                     <input class="addposts-input-title" id="post_title" type="text" name="post_title" value="Title"/>
                 </div>
 
                 <!-- Content input -->
-                <div class="addposts-content">
+                <div class="addposts-div">
                     <textarea class="addposts-input-content" id="post_content" name="post_content" rows="5" cols="33">Enter Post Here.</textarea>
                 </div>
 
                 <!-- Submit button-->
-                <div class="addposts-button">
+                <div class="addposts-div">
                     <input class="addposts-input-button" type="submit" value="Add Post" />
                 </div>
             </form>

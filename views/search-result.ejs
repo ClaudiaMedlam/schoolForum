@@ -23,14 +23,30 @@
       </ul>
     </nav>
     
-    <section>
-      <h2>The following posts match your search:</h2>
+    <section class="searchresult-section">
+      <h2 class="searchresult-heading">The following posts match your search:</h2>
       
-      <ul> 
+      <ul class="searchresult-list"> 
           <!-- Inputs books data from search and database-->
           <% for(let i = 0; i < foundPosts.length; i++) {%>
-              <li><%= foundPosts[i].post_title%>, <%=foundPosts[i].post_content%>, by <%=foundPosts[i].user_id%>
-              </li>
+            <li class="searchresult-items">
+              <div class="searchresult-topic-box">
+                <p class="searchresult-topic-p"><%= foundPosts[i].topic_title%></p>
+              </div>
+
+              <div class="searchresult-title-box">
+                <p><%= foundPosts[i].post_title%></p>
+              </div>
+
+              <div class="searchresult-content-box">
+                <p><%= foundPosts[i].post_content%></p>
+              </div>
+              
+              <div class="searchresult-user-date-box">
+                <p>Posted by <strong><%= foundPosts[i].user_name%></strong> on <strong><%= foundPosts[i].post_date%></strong></p>
+              </div>
+              
+          </li>
           <% } %>
       </ul>
     </section>
