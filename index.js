@@ -1,7 +1,7 @@
 // Imports the modules needed
 var express = require ('express')
 var session = require('express-session');
-var flash = require('express-flash');
+var flash = require('connect-flash');
 var ejs = require('ejs')
 var mysql = require('mysql');
 const bodyParser = require('body-parser');
@@ -63,35 +63,38 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport local strategy setup
-passport.use(new LocalStrategy((username, password, done) => {
-    // Check username and password in the database
-    let sqlquery = `SELECT * FROM users WHERE user_name = ?`;
-    
-    db.query(sqlquery, [username], (err, result) => {
-        if(err) {
-            return console.log.error(err);
-        }    
+passport.use(new LocalStrategy(async (user_name, password, done) => {
+    try {
+        console.log("attempting log in with: " + user_name, password);
+
+        // Check username and password in the database
+        const result = await query('SELECT * FROM users WHERE user_name = ?', [user_name]);
+        console.log("Database query result: " + result);
 
         if(result.length==0) {
-            return done(null, false, {message: "Incorrect username."});
+            return done(null, false, {message: "Incorrect username"});
         }
 
-        let user = result[0];
 
-        // Compare passwords with database
-        if(password == user.password) {
+        //Compare passwords with database
+        if(password === users.user_password) {
             return done(null, user);
-
-        }
+        } 
         else {
-            return done(null, false, {message: "Incorrect password."});
+            return done(null, false, {message: "Incorrect password"});
         }
-    });
+    }
+
+    catch(err) {
+        console.error(err);
+        return done(err);
+    }
 }));
+
 
 // Serialise and desearialise user (as per Brown (2020) p.243)
 passport.serializeUser((user, done) => {
-    done(null, user.user_id);
+    done(null, users.user_id);
 
 })
 

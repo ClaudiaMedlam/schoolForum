@@ -35,16 +35,24 @@ body {
     float: left;
 }
 
+.mainmenu-login {
+    float: right;
+    padding: 0px 20px;
+    border: 1px #ccc solid;
+    margin-right: 50px;
+    border-radius: 5px;
+}
+
 .mainmenu-link {
     display: block;
     text-align: center;
     text-decoration: none;
     font-weight: normal;
-    padding: 10px;
-    padding-bottom: 0px;
+    padding: 5px 10px;
     color: white;
     
 }
+
 
 
 /* ********************************************************** */
@@ -334,6 +342,7 @@ body {
  }
 
  /* ********************************************** */
+
  /* SEARCH PAGE */
  .searchpage-section {
     padding: 20px;
@@ -373,6 +382,7 @@ body {
  }
 
  /* ********************************************** */
+
  /* SEARCH RESULTS */
 .searchresult-section {
     padding: 20px;
@@ -429,3 +439,43 @@ body {
     padding: 0px 20px;
     margin-top: 0px; /* Align at the bottom of the post-item */
 }
+
+ /* ********************************************** */
+ 
+ /* LOGIN PAGE */
+ .login-section {
+    padding: 20px;
+ }
+
+ .login-p {
+    font-size: normal;
+    line-height: 1.5;
+}
+
+ .login-div {
+    padding: 10px 0px;
+    margin-bottom: 10px;
+ }
+
+ .login-input {
+    border: 1px solid #ccc;
+    color: #ccc;
+    padding: 10px;
+    min-height: 1em;
+    height: auto;
+    width: 25%;
+    margin-bottom: 0px;
+    border-radius: 5px;
+ }
+
+ .login-button {
+    border: 1px solid #444;
+    background-color: #444;
+    color: white;
+    padding: 10px;
+    height: auto;
+    width: 150px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    font-weight: bold;
+ }

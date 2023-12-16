@@ -20,6 +20,13 @@
           <li class="mainmenu-items"><a class="mainmenu-link" href="posts">See all posts</a></li>
           <li class="mainmenu-items"><a class="mainmenu-link" href="addposts">Add to posts</a></li>
           <li class="mainmenu-items"><a class="mainmenu-link" href="search">Search all posts</a></li>
+          <li class="mainmenu-login">
+              <% if(availableUsers.user_name) { %> 
+                <a class="mainmenu-link" href="logout">LOG OUT</a>
+              <% } else { %> 
+                <a class="mainmenu-link" href="login">LOGIN</a>
+              <% } %>
+          </li>
       </ul>
     </nav>
 
