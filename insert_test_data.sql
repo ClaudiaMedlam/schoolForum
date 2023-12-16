@@ -1,6 +1,6 @@
 -- # Insert data into the tables
 
-USE schoolData;
+USE schoolNet;
 
 INSERT INTO topics (name) 
 VALUES('Uniform'), ('Trips'), ('Lunch'), ('Assemblies') ;
