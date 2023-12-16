@@ -6,9 +6,6 @@ var ejs = require('ejs')
 var mysql = require('mysql');
 const bodyParser = require('body-parser');
 
-// For login/logout authentication:
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
 // Creates the express application object
 const app = express()
@@ -20,7 +17,7 @@ const db = mysql.createConnection ({
     host: 'localhost',
     user: 'appuser',
     password: 'app2027',
-    database: 'schoolNet'
+    database: 'schoolForum'
 });
 
 // Configure the express-session 
@@ -39,7 +36,7 @@ db.connect((err) => {
         throw err;
         console.log("Error!", err.message);
     }
-    console.log('Connected to the schoolNet database');
+    console.log('Connected to the schoolForum database');
 })
 global.db = db;
 
@@ -58,60 +55,10 @@ app.set('view engine', 'ejs');
 // Tells Express to process html files using EJS's rendering engine
 app.engine('html', ejs.renderFile);
 
-// Passport setup
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Passport local strategy setup
-passport.use(new LocalStrategy(async (user_name, password, done) => {
-    try {
-        console.log("attempting log in with: " + user_name, password);
-
-        // Check username and password in the database
-        const result = await query('SELECT * FROM users WHERE user_name = ?', [user_name]);
-        console.log("Database query result: " + result);
-
-        if(result.length==0) {
-            return done(null, false, {message: "Incorrect username"});
-        }
-
-
-        //Compare passwords with database
-        if(password === users.user_password) {
-            return done(null, user);
-        } 
-        else {
-            return done(null, false, {message: "Incorrect password"});
-        }
-    }
-
-    catch(err) {
-        console.error(err);
-        return done(err);
-    }
-}));
-
-
-// Serialise and desearialise user (as per Brown (2020) p.243)
-passport.serializeUser((user, done) => {
-    done(null, users.user_id);
-
-})
-
-passport.deserializeUser((user_id, done) => {
-    let sqlquery = `SELECT * FROM users WHERE user_id = ?`;
-    
-    db.query(sqlquery, [user_id], (err, result) => {
-        if(err) throw err;
-        let user = result[0];
-        done(null, user);
-    });
-});
-
 // Requires the main.js file inside the routes folder passing in the Express app
 // and data as arguments.  All the routes are found in this file
 require('./routes/main')(app, websiteData, passport);
 
 
 // Starts the web app listening
-app.listen(port, () => console.log(`SchoolNet app listening on port ${port}!`))
+app.listen(port, () => console.log(`schoolForum app listening on port ${port}!`))

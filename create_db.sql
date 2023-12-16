@@ -1,8 +1,8 @@
 --# Create database script for School NEXT
 
 --# Create the database
-CREATE DATABASE schoolNet;
-USE schoolNet;
+CREATE DATABASE schoolForum;
+USE schoolForum;
 
 --# Create the tables
 CREATE TABLE topics (topic_id INT AUTO_INCREMENT, topic_title VARCHAR(150), PRIMARY KEY(topic_id));
@@ -31,4 +31,4 @@ CREATE TABLE userTopic (
 
 --# Create the app user and give it access to the database
 CREATE USER 'appuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'app2027';
-GRANT ALL PRIVILEGES ON schoolNet.* TO 'appuser'@'localhost';
+GRANT ALL PRIVILEGES ON schoolForum.* TO 'appuser'@'localhost';

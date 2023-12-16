@@ -1,6 +1,6 @@
 -- # Insert data into the tables
 
-USE schoolNet;
+USE schoolForum;
 
 INSERT INTO users (user_name, user_email, user_password) 
 VALUES('Anna', 'anna@karenina.com', 'p4ssword'), 

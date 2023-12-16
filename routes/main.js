@@ -1,69 +1,37 @@
 module.exports = function(app, websiteData, passport) {
     
-    // Protect user-required pages
-    const isAuthenticated = (req, res, next) => {
-        if(req.isAuthenticated()) {
-            return next();
-        }
-
-        res.redirect('/login');
-    }
-
-
     // Handles routes
     // ************************************************************************
     // HOME PAGE
     app.get('/', function(req, res){
-        if(req.isAuthenticated()) {
+        
+        // Include user information if available:
+        var secureData = {
+            // Includes all properties from websiteData
+            ...websiteData,
+            user: req.user,
+            message: "Incorrect input"
 
-            // Include user information if available:
-            var secureData = {
-                // Includes all properties from websiteData
-                ...websiteData,
-                user: req.user,
-                message: "Incorrect input"
+        };
 
-            };
+        // Queries database to get all the topics
+        let sqlquery1 = "SELECT topic_title FROM topics";
+        let sqlquery2 = "SELECT post_title, post_content FROM posts"; 
+        let sqlquery3 = "SELECT user_name FROM users";
 
-            // Queries database to get all the topics
-            let sqlquery1 = "SELECT topic_title FROM topics";
-            let sqlquery2 = "SELECT post_title, post_content FROM posts"; 
-            let sqlquery3 = "SELECT user_name FROM users";
-
-            // Use Promise.all to execute all queries concurrently
-            Promise.all([
-                queryPromise(sqlquery1),
-                queryPromise(sqlquery2),
-                queryPromise(sqlquery3)
-            ]).then(([result1, result2, result3]) => {
-                // Creates object combining website & authentication data and database topics
-                let newData = Object.assign({}, secureData, {availableTopics:result1, availablePosts:result2, availableUsers:result3});
-                res.render('index.ejs', newData);
-            }).catch(err => {
-                console.error(err);
-                res.redirect('./');
-            })
-        }
-        else {
-            // Queries database to get all the topics
-            let sqlquery1 = "SELECT topic_title FROM topics";
-            let sqlquery2 = "SELECT post_title, post_content FROM posts"; 
-            let sqlquery3 = "SELECT user_name FROM users";
-
-            // Use Promise.all to execute all queries concurrently
-            Promise.all([
-                queryPromise(sqlquery1),
-                queryPromise(sqlquery2),
-                queryPromise(sqlquery3)
-            ]).then(([result1, result2, result3]) => {
-                // Creates object combining website & authentication data and database topics
-                let newData = Object.assign({}, websiteData, {availableTopics:result1, availablePosts:result2, availableUsers:result3});
-                res.render('index.ejs', newData);
-            }).catch(err => {
-                console.error(err);
-                res.redirect('./');
-            })
-        }
+        // Use Promise.all to execute all queries concurrently
+        Promise.all([
+            queryPromise(sqlquery1),
+            queryPromise(sqlquery2),
+            queryPromise(sqlquery3)
+        ]).then(([result1, result2, result3]) => {
+            // Creates object combining website & authentication data and database topics
+            let newData = Object.assign({}, secureData, {availableTopics:result1, availablePosts:result2, availableUsers:result3});
+            res.render('index.ejs', newData);
+        }).catch(err => {
+            console.error(err);
+            res.redirect('./');
+        })
     });
 
     // A helper function to promisify the database queries
@@ -79,62 +47,11 @@ module.exports = function(app, websiteData, passport) {
         });
     }
 
-    // ************************************************************************
-    // LOGIN PAGE 
-    app.get('/login', function(req, res) {
-        let newData = Object.assign(
-            {},
-            websiteData,
-            {messages:req.flash('error')}
-        )
-        res.render('login.ejs', newData);
-
-    })
-
-    // app.post('/login', (req, res, next) => {
-    //     passport.authenticate('local', {
-    //         successRedirect: '/',
-    //         failureRedirect: '/login',
-    //         failureFlash: true
-    //     }) (req, res, next);
-    // });
-
-    app.post('/login', (req, res, next) => {
-        passport.authenticate('local', (err, user, info) => {
-            if (err) {
-                console.error(err);
-                return next(err);
-            }
     
-            if (!user) {
-                req.flash('error', info.message); // Add this line to store the flash message
-                return res.redirect('/login');
-            }
-    
-            req.logIn(user, (err) => {
-                if (err) {
-                    console.error(err);
-                    return next(err);
-                }
-                console.log("Authentication successful");
-                return res.redirect('/');
-            });
-        })(req, res, next);
-    });
-    
-
-    // LOGOUT PAGE
-    app.get('/logout', function(req, res) {
-
-        res.render('logout.ejs', websiteData);
-    });
-
-
-
     // ************************************************************************
     // ABOUT PAGE
-    app.get('/about', isAuthenticated, function(req, res){
-        let newData = Object.assign({}, websiteData, {user: req.isAuthenticated() ? req.user : null})
+    app.get('/about', function(req, res){
+        let newData = Object.assign({}, websiteData);
         res.render('about.ejs', newData)
     });
 
@@ -142,7 +59,7 @@ module.exports = function(app, websiteData, passport) {
 
     // ************************************************************************
     // TOPICS LIST PAGE
-    app.get('/topics', isAuthenticated, function(req, res){
+    app.get('/topics', function(req, res){
         // Queries database to get all the topics
         let sqlquery = "SELECT * FROM topics ORDER BY topic_title"
 
@@ -157,8 +74,7 @@ module.exports = function(app, websiteData, passport) {
             let newData = Object.assign(
                 {}, 
                 websiteData, 
-                {availableTopics:result},
-                {user: req.isAuthenticated() ? req.user : null});
+                {availableTopics:result});
             res.render('topics.ejs', newData);
 
         });
@@ -166,7 +82,7 @@ module.exports = function(app, websiteData, passport) {
 
     // ************************************************************************
     // USER LIST PAGE
-    app.get('/users', isAuthenticated, function(req, res){
+    app.get('/users', function(req, res){
         // Queries database to get all the users
         let sqlquery = "SELECT * FROM users"
 
@@ -180,8 +96,7 @@ module.exports = function(app, websiteData, passport) {
             // Creates object combining website & authentication data and database topics
             let newData = Object.assign({}, 
                 websiteData, 
-                {allUsers:result},
-                {user: req.isAuthenticated() ? req.user : null});
+                {allUsers:result});
             res.render('users.ejs', newData);
 
         });
@@ -190,7 +105,7 @@ module.exports = function(app, websiteData, passport) {
     // ************************************************************************
     // POSTS
     // POSTS LIST PAGE
-    app.get('/posts', isAuthenticated, function(req, res){
+    app.get('/posts', function(req, res){
         // Queries database to get all the users
         let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
                         FROM vw_posts`;
@@ -220,15 +135,14 @@ module.exports = function(app, websiteData, passport) {
             let newData = Object.assign(
                 {}, 
                 websiteData, 
-                {allPosts:formattedResult},
-                {user: req.isAuthenticated() ? req.user : null});
+                {allPosts:formattedResult});
             res.render('posts.ejs', newData);
 
         });
     });
 
     // ADD NEW POST PAGE
-    app.get('/addposts', isAuthenticated, function(req, res) {
+    app.get('/addposts', function(req, res) {
         // Queries database to get all the users
         let sqlquery = "SELECT * FROM topics"
 
@@ -244,14 +158,13 @@ module.exports = function(app, websiteData, passport) {
         let newData = Object.assign(
             {}, 
             websiteData, 
-            {availableTopics:result},
-            {user: req.isAuthenticated() ? req.user : null});
+            {availableTopics:result});
         res.render('addposts.ejs', newData)
         });
     
     });
 
-    app.post('/added-post', isAuthenticated, function(req, res) {
+    app.post('/added-post', function(req, res) {
         // Using SQL Stored Procedure
         let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name]
         let sqlquery = `CALL sp_add_post(?, ?, ?, ?)`
@@ -279,14 +192,14 @@ module.exports = function(app, websiteData, passport) {
 
     // ************************************************************************
     // SEARCH POSTS
-    app.get('/search', isAuthenticated, function(req, res){
-        let newData = Object.assign({}, websiteData, {user: req.isAuthenticated() ? req.user : null})
+    app.get('/search', function(req, res){
+        let newData = Object.assign({}, websiteData)
         res.render('search.ejs', newData)
     });
 
 
     // Search results return posts that contain the keyword entered in /search
-    app.get('/search-result', isAuthenticated, function (req, res) { 
+    app.get('/search-result', function (req, res) { 
        // Searching the database
         let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
                         FROM vw_posts
@@ -321,8 +234,7 @@ module.exports = function(app, websiteData, passport) {
             let newData = Object.assign(
                 {}, 
                 websiteData, 
-                {foundPosts:formattedResult},
-                {user: req.isAuthenticated() ? req.user: null});
+                {foundPosts:formattedResult});
             res.render('search-result.ejs', newData);
 
          });
