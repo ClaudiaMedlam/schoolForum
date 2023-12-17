@@ -36,53 +36,54 @@ CREATE DATABASE schoolForum;
 USE schoolForum;
 
 #Create the tables:
-CREATE TABLE topics (topic_id INT AUTO_INCREMENT, topic_title VARCHAR(150), PRIMARY KEY(topic_id));
+CREATE TABLE topics (topic_id INT AUTO_INCREMENT, topic_title VARCHAR(150), PRIMARY KEY(topic_id));<br />
 
-CREATE TABLE users (user_id INT AUTO_INCREMENT, user_name VARCHAR(50), user_password VARCHAR(20), user_email VARCHAR(50), PRIMARY KEY(user_id));
+CREATE TABLE users (user_id INT AUTO_INCREMENT, user_name VARCHAR(50), user_password VARCHAR(20), user_email VARCHAR(50), PRIMARY KEY(user_id));<br />
 
-CREATE TABLE posts(
-    post_id INT AUTO_INCREMENT,
-    post_title MEDIUMTEXT,
-    post_content LONGTEXT,
-    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    user_id INT,
-    topic_id INT,
-    PRIMARY KEY (post_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (topic_id) REFERENCES topics(topic_id)
-    );
+CREATE TABLE posts(<br />
+    post_id INT AUTO_INCREMENT,<br />
+    post_title MEDIUMTEXT,<br />
+    post_content LONGTEXT,<br />
+    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,<br />
+    user_id INT,<br />
+    topic_id INT,<br />
+    PRIMARY KEY (post_id),<br />
+    FOREIGN KEY (user_id) REFERENCES users(user_id),<br />
+    FOREIGN KEY (topic_id) REFERENCES topics(topic_id)<br />
+    );<br />
 
-CREATE TABLE userTopic (
-    user_id INT,
-    topic_id INT,
-    PRIMARY KEY (user_id, topic_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (topic_id) REFERENCES topics(topic_id)
-    );
+CREATE TABLE userTopic (<br />
+    user_id INT,<br />
+    topic_id INT,<br />
+    PRIMARY KEY (user_id, topic_id),<br />
+    FOREIGN KEY (user_id) REFERENCES users(user_id),<br />
+    FOREIGN KEY (topic_id) REFERENCES topics(topic_id)<br />
+    );<br />
 
-#Create app user and provide accesss to the database:
-CREATE USER 'appuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'app2027';
+#Create app user and provide accesss to the database:<br />
+CREATE USER 'appuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'app2027';<br />
 
-GRANT ALL PRIVILEGES ON schoolForum.* TO 'appuser'@'localhost';
+GRANT ALL PRIVILEGES ON schoolForum.* TO 'appuser'@'localhost';<br />
 
 <em>3. The mysql database can be filled with the information in insert_test_data.sql, also provided below:</em>
 
 USE schoolForum;
 
-INSERT INTO users (user_name, user_email, user_password) 
-VALUES('Anna', 'anna@karenina.com', 'p4ssword'), 
-('Bilbo', 'bilbo@baggins.com', 'passw0rd'), 
-('Cruella','cruella@devil.com','pa55word'), 
-('David', 'david@copperfield.com', 'password!'),
-('Emma', 'emma@bovary.com', 'Password'),
-('Llewelyn', 'Llewelyn.Fernandes@gold.ac.uk', 'DWApps') ;
+INSERT INTO users (user_name, user_email, user_password) <br />
+VALUES('Anna', 'anna@karenina.com', 'p4ssword'), <br />
+('Bilbo', 'bilbo@baggins.com', 'passw0rd'), <br />
+('Cruella','cruella@devil.com','pa55word'), <br />
+('David', 'david@copperfield.com', 'password!'),<br />
+('Emma', 'emma@bovary.com', 'Password'),<br />
+('Llewelyn', 'Llewelyn.Fernandes@gold.ac.uk', 'DWApps') ;<br />
 
-INSERT INTO topics (topic_title)
-VALUES ('Uniform'), ('Trips'), ('Lunch'), ('Assemblies'),
-('Reception Year'), ('Year 1'), ('Year 2'), ('Year 3'), ('Year 4'), ('Year 5'), ('Year 6'), 
-('School Socials'), ('Projects');
+INSERT INTO topics (topic_title)<br />
+VALUES ('Uniform'), ('Trips'), ('Lunch'), ('Assemblies'),<br />
+('Reception Year'), ('Year 1'), ('Year 2'), ('Year 3'), ('Year 4'), ('Year 5'), ('Year 6'), <br />
+('School Socials'), ('Projects');<br />
 
-#Create viewcreate view vw_posts to consolidate code in routes /posts and /search-result
+#Create view to consolidate code in routes /posts and /search-result
+CREATE VIEW vw_posts AS
 SELECT
     p.post_id,
     p.post_date,
