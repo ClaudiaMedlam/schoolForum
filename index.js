@@ -57,7 +57,7 @@ app.engine('html', ejs.renderFile);
 
 // Requires the main.js file inside the routes folder passing in the Express app
 // and data as arguments.  All the routes are found in this file
-require('./routes/main')(app, websiteData, passport);
+require('./routes/main')(app, websiteData);
 
 
 // Starts the web app listening
