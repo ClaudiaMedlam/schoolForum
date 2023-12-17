@@ -1,9 +1,9 @@
-module.exports = function(app, websiteData, passport) {
+module.exports = function(app, websiteData) {
     
     // Handles routes
     // ************************************************************************
     // HOME PAGE
-    app.get('/', function(req, res){
+    app.get('/', (req, res) => {
         
         // Include user information if available:
         var secureData = {
@@ -50,7 +50,7 @@ module.exports = function(app, websiteData, passport) {
     
     // ************************************************************************
     // ABOUT PAGE
-    app.get('/about', function(req, res){
+    app.get('/about', (req, res) => {
         let newData = Object.assign({}, websiteData);
         res.render('about.ejs', newData)
     });
@@ -59,7 +59,7 @@ module.exports = function(app, websiteData, passport) {
 
     // ************************************************************************
     // TOPICS LIST PAGE
-    app.get('/topics', function(req, res){
+    app.get('/topics', (req, res) => {
         // Queries database to get all the topics
         let sqlquery = "SELECT * FROM topics ORDER BY topic_title"
 
@@ -82,7 +82,7 @@ module.exports = function(app, websiteData, passport) {
 
     // ************************************************************************
     // USER LIST PAGE
-    app.get('/users', function(req, res){
+    app.get('/users', (req, res) =>{
         // Queries database to get all the users
         let sqlquery = "SELECT * FROM users"
 
@@ -105,7 +105,7 @@ module.exports = function(app, websiteData, passport) {
     // ************************************************************************
     // POSTS
     // POSTS LIST PAGE
-    app.get('/posts', function(req, res){
+    app.get('/posts', (req, res) => {
         // Queries database to get all the users
         let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
                         FROM vw_posts`;
@@ -142,7 +142,7 @@ module.exports = function(app, websiteData, passport) {
     });
 
     // ADD NEW POST PAGE
-    app.get('/addposts', function(req, res) {
+    app.get('/addposts', (req, res) => {
         // Queries database to get all the users
         let sqlquery = "SELECT * FROM topics"
 
@@ -164,7 +164,7 @@ module.exports = function(app, websiteData, passport) {
     
     });
 
-    app.post('/added-post', function(req, res) {
+    app.post('/added-post', (req, res) => {
         // Using SQL Stored Procedure
         let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name]
         let sqlquery = `CALL sp_insert_post(?, ?, ?, ?)`
@@ -185,21 +185,21 @@ module.exports = function(app, websiteData, passport) {
 
     // Helper function to
     function renderAddNewPost(res, initialvalues, errormessage) {
-        let data = Object.assign({}, forumData, initialvalues, {errormessage:errormessage});
+        let data = Object.assign({}, websiteData, initialvalues, {errormessage:errormessage});
         res.render("addposts.ejs", data);
         return;
     }
 
     // ************************************************************************
     // SEARCH POSTS
-    app.get('/search', function(req, res){
+    app.get('/search', (req, res) => {
         let newData = Object.assign({}, websiteData)
         res.render('search.ejs', newData)
     });
 
 
     // Search results return posts that contain the keyword entered in /search
-    app.get('/search-result', function (req, res) { 
+    app.get('/search-result', (req, res) => { 
        // Searching the database
         let sqlquery = `SELECT post_id, post_date, user_name, topic_title, post_title, post_content
                         FROM vw_posts

@@ -33,8 +33,7 @@ app.use(flash());
 // Connects to the database
 db.connect((err) => {
     if(err) {
-        throw err;
-        console.log("Error!", err.message);
+        console.error("Error connecting to database: " + err.message);
     }
     console.log('Connected to the schoolForum database');
 })
@@ -44,7 +43,7 @@ global.db = db;
 app.use(express.static(__dirname + '/public'));
 
 // Defines website metadata
-var websiteData = {websiteName: "School Net"}
+var websiteData = {websiteName: "School Forum"}
 
 // Sets the directory where Express will pick up html files
 app.set('views', __dirname + '/views');
@@ -57,7 +56,7 @@ app.engine('html', ejs.renderFile);
 
 // Requires the main.js file inside the routes folder passing in the Express app
 // and data as arguments.  All the routes are found in this file
-require('./routes/main')(app, websiteData, passport);
+require('./routes/main')(app, websiteData);
 
 
 // Starts the web app listening
