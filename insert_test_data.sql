@@ -33,7 +33,7 @@ ORDER BY
     post_date DESC;
 
 
--- # Creating sql stored procedure:
+# Creating sql stored procedure:
 DELIMITER //
 CREATE PROCEDURE sp_insert_post(IN p_post_title MEDIUMTEXT, IN p_post_content LONGTEXT, IN p_topic_title VARCHAR(150), IN p_user_name VARCHAR(50))
 BEGIN
