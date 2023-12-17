@@ -167,7 +167,7 @@ module.exports = function(app, websiteData) {
     app.post('/added-post', (req, res) => {
         // Using SQL Stored Procedure
         let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name];
-        let sqlquery = `CALL sp_add_post(?, ?, ?, ?)`;
+        let sqlquery = `CALL sp_insert_post(?, ?, ?, ?)`;
     
         console.log("Parameters are: " + params);
     
