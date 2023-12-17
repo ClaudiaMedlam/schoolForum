@@ -60,7 +60,7 @@ module.exports = function(app, websiteData) {
     // ************************************************************************
     // TOPICS LIST PAGE
     app.get('/topics', (req, res) => {
-        // Queries database to get all the topics
+        // Queries database to get all the topics in alphabetical order
         let sqlquery = "SELECT * FROM topics ORDER BY topic_title"
 
         // Executes sql query
