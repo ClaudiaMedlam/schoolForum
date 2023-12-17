@@ -166,29 +166,27 @@ module.exports = function(app, websiteData) {
 
     app.post('/added-post', (req, res) => {
         // Using SQL Stored Procedure
-        let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name]
-        let sqlquery = `CALL sp_insert_post(?, ?, ?, ?)`
-
+        let params = [req.body.post_title, req.body.post_content, req.body.topic_title, req.body.user_name];
+        let sqlquery = `CALL sp_add_post(?, ?, ?, ?)`;
+    
         console.log("Parameters are: " + params);
-
+    
+        // Execute the SQL query
         db.query(sqlquery, params, (err, result) => {
-            if(err) {
-                return renderAddNewPost(res, req.body, "Something went wrong")
+            if (err) {
+                // If there is an error, render the addposts.ejs page with an error message
+                let newData = Object.assign({}, websiteData, req.body, { errormessage: "The post has not been added" });
+                res.render("addposts.ejs", newData);
+            } else if (result.length === 0) {
+                // If the result is empty, render the addposts.ejs page with an appropriate message
+                let newData = Object.assign({}, websiteData, req.body, { errormessage: "Please ensure all sections are filled in correctly" });
+                res.render("addposts.ejs", newData);
+            } else {
+                // If everything is successful, send a success message
+                res.send("Your post has been added to the forum");
             }
-
-            else if(result.length==0) {
-                return renderAddNewPost(res, req.body, "What do I call here?")
-            }
-            res.send("Your post has been added to the forum")
-        })
+        });
     });
-
-    // Helper function to
-    function renderAddNewPost(res, initialvalues, errormessage) {
-        let data = Object.assign({}, websiteData, initialvalues, {errormessage:errormessage});
-        res.render("addposts.ejs", data);
-        return;
-    }
 
     // ************************************************************************
     // SEARCH POSTS

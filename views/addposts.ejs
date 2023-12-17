@@ -25,6 +25,12 @@
       </nav>
       
       <section class="addposts-section">
+            <!-- Error message if addPost doesn't work-->
+            <% if (errormessage) { %>
+                <div class="error-message">
+                    <%= errormessage %>
+                </div>
+            <% } %>
             <!-- Sets up form with four inputs and a submit button -->
             <form method="POST" action="/added-post">
                 <!-- User input for user name for moment IF TIME AUTO FROM LOGIN-->
