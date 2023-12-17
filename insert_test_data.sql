@@ -1,4 +1,4 @@
--- # Insert data into the tables
+# Insert data into the tables
 
 USE schoolForum;
 
@@ -15,7 +15,8 @@ VALUES ('Uniform'), ('Trips'), ('Lunch'), ('Assemblies'),
 ('Reception Year'), ('Year 1'), ('Year 2'), ('Year 3'), ('Year 4'), ('Year 5'), ('Year 6'), 
 ('School Socials'), ('Projects');
 
--- #CREATE VIEWCREATE VIEW vw_posts AS
+#CREATE VIEWCREATE 
+CREATE VIEW vw_posts AS
 SELECT
     p.post_id,
     p.post_date,
