@@ -25,7 +25,7 @@ Intended Extensions:
 - Because of the above I didn't have time to implement replies to posts, which I was intending.
 
 <strong>About deployment</strong><br />
-<em>1. This project use Node.js + mysql as server, please ensure that you have installed them. It doesn't include the node modules so they have to be separately loaded, using npm install commande to install them.</em><br />
+<em>1. This project use Node.js + mysql as server, please ensure that you have installed them. You also need to install express and ejs. It doesn't include the node modules so they have to be separately loaded, using npm install commande to install them.</em><br />
 
 <em>2. The mysql database can be created with the information provided in the create_db.sql page, also outlined below:</em>
 
